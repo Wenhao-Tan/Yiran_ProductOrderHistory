@@ -59,7 +59,5 @@ class Yiran_ProductOrderHistory_Block_History extends Mage_Core_Block_Template
         $collection->getSelect()->group('main_table.entity_id');
 
         return $collection;
-
-        return $collection;
     }
 }
