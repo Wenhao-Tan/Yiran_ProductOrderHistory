@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <modules>
+        <Yiran_ProductOrderHistory>
+            <version>0.0.1</version>
+        </Yiran_ProductOrderHistory>
+    </modules>
+
+    <global>
+        <blocks>
+            <productorderhistory>
+                <class>Yiran_ProductOrderHistory_Block</class>
+            </productorderhistory>
+        </blocks>
+        <helpers>
+            <productorderhistory>
+                <class>Yiran_ProductOrderHistory_Helper</class>
+            </productorderhistory>
+        </helpers>
+        <models>
+            <productorderhistory>
+                <class>Yiran_ProductOrderHistory_Model</class>
+            </productorderhistory>
+        </models>
+    </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <productorderhistory>
+                    <file>productorderhistory.xml</file>
+                </productorderhistory>
+            </updates>
+        </layout>
+
+        <routers>
+            <productorderhistory>
+                <use>standard</use>
+                <args>
+                    <module>Yiran_ProductOrderHistory</module>
+                    <frontName>productorderhistory</frontName>
+                </args>
+            </productorderhistory>
+        </routers>
+    </frontend>
+</config>
