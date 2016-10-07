@@ -3,50 +3,53 @@ $historyCollection = $this->getHistoryCollection();
 ?>
 
 <?php if($historyCollection->getSize()): ?>
-<table class="data-table table order-history">
-    <thead>
-    <tr>
-        <th><?= $this->__('Customer') ?></th>
-        <th><?= $this->__('Country') ?></th>
-        <th><?= $this->__('Order Q\'TY') ?></th>
-        <th><?= $this->__('Order Date') ?></th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($historyCollection as $history): ?>
-        <tr>
-            <td>
-                <div class="customer-name">
-                    <?php
-                    $firstname = $history->customer_firstname;
-                    $lastname = $history->customer_lastname;
-                    if(stripos($firstname, 'optic') !== false) {
-                        $length = stripos($firstname, 'optic');
-                        $ellipsis = substr($firstname, 1, $length-1);
-                        $firstname = substr($firstname, 0, 1) . str_repeat('*', strlen($ellipsis)) . ' ' . substr($firstname, $length);
-                    }
-                    ?>
-                    <?= $firstname . ' ' . substr($lastname, 0, 1) . '.' ?>
-                </div>
-            </td>
-            <td>
-                <div class="shipping-country">
-                    <i class="flag-icon flag-icon-<?= strtolower($history->country_id) ?>"></i>
-                    <?= $history->country_id ?>
-                </div>
-            </td>
-            <td>
-                <div class="qty_ordered a-right">
-                    <?= intval($history->qty) . ' Piece(s)' ?>
-                </div>
-            </td>
-            <td>
-                <div class="created_date a-right">
-                    <?= date('M d Y H:i', strtotime($history->getCreatedAt())) ?>
-                </div>
-            </td>
-        </tr>
-    <?php endforeach; ?>
-    </tbody>
-</table>
+    <div class="box-collateral order-history col-xs-12">
+        <h2>Transaction History</h2>
+        <table class="data-table table order-history">
+            <thead>
+            <tr>
+                <th><?= $this->__('Customer') ?></th>
+                <th><?= $this->__('Country') ?></th>
+                <th><?= $this->__('Order Q\'TY') ?></th>
+                <th><?= $this->__('Order Date') ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($historyCollection as $history): ?>
+                <tr>
+                    <td>
+                        <div class="customer-name">
+                            <?php
+                            $firstname = $history->customer_firstname;
+                            $lastname = $history->customer_lastname;
+                            if(stripos($firstname, 'optic') !== false) {
+                                $length = stripos($firstname, 'optic');
+                                $ellipsis = substr($firstname, 1, $length-1);
+                                $firstname = substr($firstname, 0, 1) . str_repeat('*', strlen($ellipsis)) . ' ' . substr($firstname, $length);
+                            }
+                            ?>
+                            <?= $firstname . ' ' . substr($lastname, 0, 1) . '.' ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="shipping-country">
+                            <i class="flag-icon flag-icon-<?= strtolower($history->country_id) ?>"></i>
+                            <?= $history->country_id ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="qty_ordered a-right">
+                            <?= intval($history->qty) . ' Piece(s)' ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="created_date a-right">
+                            <?= date('M d Y H:i', strtotime($history->getCreatedAt())) ?>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 <?php endif; ?>
