@@ -53,7 +53,7 @@ class Yiran_ProductOrderHistory_Block_History extends Mage_Core_Block_Template
     {
         $collection = Mage::getModel('sales/order_item')->getCollection();
         $collection->addFieldToSelect(['sum(qty_ordered) AS qty'])
-            ->addFieldToFilter('product_id', Mage::registry('current_product')->get())
+            ->addFieldToFilter('product_id', Mage::registry('current_product')->getId())
             ->addFieldToFilter('product_type', 'configurable');
 
         return $collection;
