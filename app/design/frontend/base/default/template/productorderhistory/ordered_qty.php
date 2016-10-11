@@ -1,7 +1,7 @@
 <?php
-$qty = $this->getProductOrderedQty();
+$collection = $this->getProductOrderedQty();
 ?>
 
 <div class="order_qty">
-    <?= $qty ?>
+    <?= $collection->qty; ?>
 </div>
