@@ -3,7 +3,7 @@ $historyCollection = $this->getHistoryCollection();
 ?>
 
 <?php if($historyCollection->getSize()): ?>
-    <div class="box-collateral order-history">
+    <div class="box-collateral order-history col-xs-12">
         <h2>Transaction History</h2>
         <table class="data-table table order-history">
             <thead>
@@ -38,12 +38,12 @@ $historyCollection = $this->getHistoryCollection();
                         </div>
                     </td>
                     <td>
-                        <div class="qty_ordered a-right">
+                        <div class="qty_ordered">
                             <?= intval($history->qty) . ' Piece(s)' ?>
                         </div>
                     </td>
                     <td>
-                        <div class="created_date a-right">
+                        <div class="created_date">
                             <?= date('M d Y H:i', strtotime($history->getCreatedAt())) ?>
                         </div>
                     </td>

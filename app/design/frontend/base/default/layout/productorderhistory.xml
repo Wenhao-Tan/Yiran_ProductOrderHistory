@@ -3,6 +3,7 @@
     <catalog_product_view>
         <reference name="product.info">
             <block type="productorderhistory/history" name="product.orderhistory" template="productorderhistory/history.phtml" />
+            <block type="productorderhistory/history" name="product.soldquantity" template="productorderhistory/sold_quantity.phtml" />
 
             <block type="productorderhistory/history" name="product.orderhistory" template="productorderhistory/history.phtml">
                 <action method="addToParentGroup"><group>detailed_info</group></action>

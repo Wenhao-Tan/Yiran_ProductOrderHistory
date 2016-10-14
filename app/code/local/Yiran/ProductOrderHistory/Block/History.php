@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: Paul
- * Date: 2016/6/21
- * Time: 5:51
- */
 class Yiran_ProductOrderHistory_Block_History extends Mage_Core_Block_Template
 {
     protected function _prepareLayout()
@@ -28,6 +22,17 @@ class Yiran_ProductOrderHistory_Block_History extends Mage_Core_Block_Template
         return $this->getChildHtml('pager');
     }
 
+    function getCurrentProductId()
+    {
+        $currentProduct = Mage::registry('current_product');
+
+        if ($currentProduct) {
+            $productId = $currentProduct->getId();
+        }
+
+        return $productId;
+    }
+
     public function getHistoryCollection()
     {
         $collection = Mage::getModel('sales/order')->getCollection();
@@ -36,7 +41,9 @@ class Yiran_ProductOrderHistory_Block_History extends Mage_Core_Block_Template
         $collection->join(['order_item' => 'sales/order_item'], 'order_item.order_id = main_table.entity_id', ['product_id', 'sum(qty_ordered) AS qty'])
             ->join(['order_address' => 'sales/order_address'], 'order_address.parent_id = order_item.order_id', ['parent_id', 'country_id']);
 
-        $collection->addAttributeToFilter('product_id', Mage::registry('current_product')->getId())
+        $productId = $this->getCurrentProductId();
+
+        $collection->addAttributeToFilter('product_id', $productId)
             ->addAttributeToFilter('address_type', 'shipping')
             ->addAttributeToFilter('status', ['complete', 'processing'])
             ->addAttributeToSort('created_at', 'DESC')
@@ -49,13 +56,18 @@ class Yiran_ProductOrderHistory_Block_History extends Mage_Core_Block_Template
         return $collection;
     }
 
-    public function getProductOrderedQty()
+    public function getProductSoldQuantity($productId = '')
     {
-        $collection = Mage::getModel('sales/order_item')->getCollection();
-        $collection->addFieldToSelect(['sum(qty_ordered) AS qty'])
-            ->addFieldToFilter('product_id', Mage::registry('current_product')->getId())
-            ->addFieldToFilter('product_type', 'configurable');
+        if ($productId == '') {
+            $productId = $this->getCurrentProductId();
+        }
 
-        return $collection;
+        $collection = Mage::getModel('sales/order_item')->getCollection();
+        $collection->getSelect()->columns('SUM(qty_invoiced) AS qty');
+        $product = $collection->addFieldToFilter('product_id', $productId)->getFirstItem();
+
+        $qty_invoiced = $product->qty;
+
+        return (int)$qty_invoiced;
     }
 }
