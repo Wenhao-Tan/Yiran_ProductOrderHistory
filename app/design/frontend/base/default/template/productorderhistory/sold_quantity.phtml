@@ -2,6 +2,8 @@
 $qty = $this->getProductSoldQuantity();
 ?>
 
+<?php if ($qty > 0): ?>
 <div id="product-sold-quantity">
     <p><b><u>Sold <?= $qty ?> Piece(s)</u></b></p>
 </div>
+<?php endif; ?>
